@@ -115,7 +115,9 @@ func ContextNotDone(ctx context.Context) bool {
 func UpdateCPUStats() {
 	goos := runtime.GOOS
 	if strings.HasPrefix(goos, WindowsPrefix) {
-
+		cpu := ReadWindowsCPUUsage()
+		fmt.Println(cpu)
+		TheCPUMonitor.Recalculate(cpu)
 	} else if strings.HasPrefix(goos, LinuxPrefix) {
 		cpu := ReadLinuxCPUUsage()
 		TheCPUMonitor.Recalculate(cpu)
@@ -127,7 +129,9 @@ func UpdateCPUStats() {
 func UpdateMemoryStats() {
 	goos := runtime.GOOS
 	if strings.HasPrefix(goos, WindowsPrefix) {
-
+		memory := ReadWindowsMemoryUsage()
+		fmt.Println(memory)
+		TheMemoryMonitor.Update(memory)
 	} else if strings.HasPrefix(goos, LinuxPrefix) {
 		memory := ReadLinuxMemoryUsage()
 		TheMemoryMonitor.Update(memory)
